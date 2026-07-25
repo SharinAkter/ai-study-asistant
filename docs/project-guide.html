@@ -1,0 +1,681 @@
+<!doctype html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8" />
+<title>AI Study Assistant — Project Guide</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    font-family: 'Nirmala UI', 'Noto Sans Bengali', 'Vrinda', 'Segoe UI', Arial, sans-serif;
+    color: #1f2937;
+    line-height: 1.65;
+    margin: 0;
+    padding: 0;
+    font-size: 13.5px;
+  }
+  .cover {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: linear-gradient(135deg, #eff6ff 0%, #ffffff 50%, #dbeafe 100%);
+    border-bottom: 10px solid #2563eb;
+  }
+  .cover .badge {
+    background: #dbeafe;
+    color: #1d4ed8;
+    padding: 6px 18px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 18px;
+  }
+  .cover h1 {
+    font-size: 40px;
+    color: #0f1a3d;
+    margin: 0 0 10px;
+  }
+  .cover h1 span { color: #2563eb; }
+  .cover p.subtitle {
+    font-size: 17px;
+    color: #4b5563;
+    max-width: 640px;
+    margin: 0 auto 26px;
+  }
+  .cover .meta {
+    margin-top: 40px;
+    font-size: 13px;
+    color: #6b7280;
+  }
+  .cover .techrow {
+    margin-top: 30px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .cover .techrow span {
+    background: #ffffff;
+    border: 1px solid #bfdbfe;
+    color: #1e40af;
+    padding: 5px 12px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  .page { padding: 36px 46px; page-break-after: always; }
+  .page:last-child { page-break-after: avoid; }
+
+  h2.section-title {
+    font-size: 23px;
+    color: #ffffff;
+    background: linear-gradient(90deg, #1a2b5f, #2563eb);
+    padding: 12px 18px;
+    border-radius: 10px;
+    margin: 0 0 22px;
+  }
+  h2.section-title .num {
+    display: inline-block;
+    background: rgba(255,255,255,0.25);
+    border-radius: 6px;
+    padding: 2px 10px;
+    margin-right: 10px;
+    font-size: 15px;
+  }
+
+  h3 {
+    color: #1a2b5f;
+    font-size: 16.5px;
+    border-left: 4px solid #2563eb;
+    padding-left: 10px;
+    margin: 22px 0 8px;
+  }
+
+  p { margin: 6px 0; text-align: justify; }
+  ul, ol { margin: 6px 0 6px 0; padding-left: 22px; }
+  li { margin: 4px 0; }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 10px 0 16px;
+    font-size: 13px;
+  }
+  table th, table td {
+    border: 1px solid #e5e7eb;
+    padding: 8px 10px;
+    text-align: left;
+  }
+  table th {
+    background: #eff6ff;
+    color: #1e3a8a;
+    font-weight: 700;
+  }
+  table tr:nth-child(even) td { background: #f9fafb; }
+
+  .card {
+    background: #f8fafc;
+    border: 1px solid #e5e7eb;
+    border-left: 4px solid #2563eb;
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin: 10px 0;
+  }
+  .card h4 { margin: 0 0 6px; color: #1a2b5f; font-size: 14.5px; }
+  .card p { margin: 3px 0; }
+
+  code, .mono {
+    font-family: 'Consolas', 'Courier New', monospace;
+    background: #eef2ff;
+    color: #1e3a8a;
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-size: 12.5px;
+  }
+  pre {
+    background: #0f1a3d;
+    color: #e5e7eb;
+    padding: 14px 16px;
+    border-radius: 8px;
+    font-family: 'Consolas', 'Courier New', monospace;
+    font-size: 12px;
+    white-space: pre-wrap;
+    overflow-x: auto;
+    line-height: 1.5;
+  }
+  pre .cmt { color: #93c5fd; }
+
+  .flow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin: 16px 0;
+  }
+  .flow .box {
+    background: #ffffff;
+    border: 2px solid #2563eb;
+    border-radius: 10px;
+    padding: 10px 16px;
+    font-size: 12.5px;
+    font-weight: 600;
+    color: #1a2b5f;
+    text-align: center;
+    min-width: 110px;
+  }
+  .flow .arrow { font-size: 18px; color: #2563eb; font-weight: bold; }
+
+  .steps { list-style: none; padding: 0; margin: 10px 0; }
+  .steps li {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 10px;
+    align-items: flex-start;
+  }
+  .steps .n {
+    flex-shrink: 0;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: #2563eb;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 12.5px;
+  }
+
+  .toc-list { list-style: none; padding: 0; margin-top: 20px; }
+  .toc-list li {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 4px;
+    border-bottom: 1px dashed #dbeafe;
+    font-size: 14.5px;
+    color: #1a2b5f;
+    font-weight: 600;
+  }
+  .toc-list li span.p { color: #2563eb; }
+
+  .footer-note {
+    text-align: center;
+    color: #9ca3af;
+    font-size: 11px;
+    margin-top: 30px;
+  }
+
+  .qa .q { font-weight: 700; color: #1a2b5f; margin-top: 12px; }
+  .qa .a { margin: 4px 0 0 16px; color: #374151; }
+
+  .two-col { display: flex; gap: 18px; }
+  .two-col > div { flex: 1; }
+</style>
+</head>
+<body>
+
+<!-- COVER PAGE -->
+<div class="page cover" style="page-break-after: always;">
+  <div class="badge">প্রজেক্ট প্রেজেন্টেশন গাইড</div>
+  <h1>AI Study <span>Assistant</span></h1>
+  <p class="subtitle">
+    একটি Full-Stack React ওয়েব অ্যাপ্লিকেশন — শিক্ষার্থীদের জন্য নোটস, স্মার্ট সামারি, স্টাডি প্ল্যানার এবং
+    সম্পূর্ণ অ্যাডমিন প্যানেল সহ একটি স্মার্ট স্টাডি প্ল্যাটফর্ম।
+  </p>
+  <div class="techrow">
+    <span>React 19</span>
+    <span>Vite</span>
+    <span>Tailwind CSS 4</span>
+    <span>Zustand</span>
+    <span>React Router 7</span>
+    <span>Express.js</span>
+    <span>Google Gemini AI</span>
+  </div>
+  <div class="meta">প্রজেক্ট A–to–Z ব্যাখ্যা • আর্কিটেকচার • ফিচার • কোড স্ট্রাকচার • রান করার পদ্ধতি • প্রেজেন্টেশন প্রশ্নোত্তর</div>
+</div>
+
+<!-- TOC -->
+<div class="page">
+  <h2 class="section-title"><span class="num">সূচি</span>বিষয়সূচি (Table of Contents)</h2>
+  <ul class="toc-list">
+    <li>১. প্রজেক্ট ভূমিকা (Introduction) <span class="p">Overview</span></li>
+    <li>২. ব্যবহৃত প্রযুক্তি (Tech Stack) <span class="p">Technologies</span></li>
+    <li>৩. প্রজেক্ট স্ট্রাকচার (Folder Structure) <span class="p">Structure</span></li>
+    <li>৪. আর্কিটেকচার — এটি কিভাবে কাজ করে <span class="p">Architecture</span></li>
+    <li>৫. State Management (Zustand Stores) <span class="p">State</span></li>
+    <li>৬. রাউটিং সিস্টেম (Routing & Route Guards) <span class="p">Routing</span></li>
+    <li>৭. মূল ফিচারসমূহ — ইউজার সাইড <span class="p">User Features</span></li>
+    <li>৮. অ্যাডমিন প্যানেল — সম্পূর্ণ বিবরণ <span class="p">Admin Panel</span></li>
+    <li>৯. AI Backend Server (Express + Gemini) <span class="p">Backend</span></li>
+    <li>১০. ডেটা সংরক্ষণ পদ্ধতি (localStorage) <span class="p">Data Storage</span></li>
+    <li>১১. ইউজার ফ্লো — স্টেপ বাই স্টেপ <span class="p">User Flow</span></li>
+    <li>১২. অ্যাডমিন ফ্লো — স্টেপ বাই স্টেপ <span class="p">Admin Flow</span></li>
+    <li>১৩. প্রজেক্ট রান করার পদ্ধতি <span class="p">Setup & Run</span></li>
+    <li>১৪. প্রেজেন্টেশনের জন্য প্রশ্নোত্তর <span class="p">Q & A</span></li>
+    <li>১৫. উপসংহার ও ভবিষ্যৎ পরিকল্পনা <span class="p">Conclusion</span></li>
+  </ul>
+</div>
+
+<!-- 1. INTRODUCTION -->
+<div class="page">
+  <h2 class="section-title"><span class="num">০১</span>প্রজেক্ট ভূমিকা (Introduction)</h2>
+  <p>
+    <b>AI Study Assistant</b> একটি সম্পূর্ণ <b>ফুল-স্ট্যাক ওয়েব অ্যাপ্লিকেশন</b>, যা মূলত শিক্ষার্থীদের পড়াশোনায়
+    সাহায্য করার জন্য তৈরি করা হয়েছে। এই অ্যাপে একজন ইউজার নিজের অ্যাকাউন্ট তৈরি করে নোট লিখতে পারে,
+    AI চ্যাটবটের সাথে কথা বলতে পারে, দীর্ঘ নোট থেকে স্মার্ট সামারি বানাতে পারে, এবং প্রতিদিনের স্টাডি প্ল্যান
+    তৈরি করে ট্র্যাক করতে পারে।
+  </p>
+  <p>
+    এর পাশাপাশি একটি সম্পূর্ণ <b>Admin Panel</b> আছে, যেখান থেকে একজন অ্যাডমিন সব ইউজার, সাইট সেটিংস,
+    অ্যানাউন্সমেন্ট এবং পুরো অ্যাপের ফিচার নিয়ন্ত্রণ করতে পারে।
+  </p>
+  <h3>প্রজেক্টের মূল উদ্দেশ্য</h3>
+  <ul>
+    <li>শিক্ষার্থীদের জন্য একটি সহজ, ব্যবহারকারী-বান্ধব স্টাডি প্ল্যাটফর্ম তৈরি করা।</li>
+    <li>React, State Management, Routing, ও REST API নিয়ে বাস্তব প্রজেক্টে হাতে-কলমে কাজ শেখা।</li>
+    <li>Google-এর Generative AI (Gemini) ব্যবহার করে বাস্তব AI ফিচার (চ্যাট + সামারি) ইন্টিগ্রেট করা।</li>
+    <li>Admin ও User — দুই ধরনের role-based অ্যাক্সেস সিস্টেম বাস্তবায়ন করা।</li>
+  </ul>
+  <h3>এক নজরে প্রজেক্ট</h3>
+  <table>
+    <tr><th>বিষয়</th><th>বিবরণ</th></tr>
+    <tr><td>প্রজেক্টের নাম</td><td>AI Study Assistant</td></tr>
+    <tr><td>ধরন</td><td>Full-Stack Web Application (SPA)</td></tr>
+    <tr><td>ফ্রন্টএন্ড</td><td>React 19 + Vite + Tailwind CSS</td></tr>
+    <tr><td>ব্যাকএন্ড</td><td>Node.js + Express.js</td></tr>
+    <tr><td>AI ইঞ্জিন</td><td>Google Gemini (Generative AI)</td></tr>
+    <tr><td>ডেটা সংরক্ষণ</td><td>Browser localStorage (কোনো ডাটাবেস ব্যবহার হয়নি)</td></tr>
+    <tr><td>ইউজার রোল</td><td>Student (User) ও Admin</td></tr>
+  </table>
+</div>
+
+<!-- 2. TECH STACK -->
+<div class="page">
+  <h2 class="section-title"><span class="num">০২</span>ব্যবহৃত প্রযুক্তি (Tech Stack)</h2>
+
+  <h3>Frontend</h3>
+  <table>
+    <tr><th>টেকনোলজি</th><th>কাজ</th></tr>
+    <tr><td><b>React 19</b></td><td>UI তৈরির মূল লাইব্রেরি — কম্পোনেন্ট ভিত্তিক ডিজাইন</td></tr>
+    <tr><td><b>Vite 6</b></td><td>ডেভেলপমেন্ট সার্ভার ও প্রোডাকশন বিল্ড টুল (অনেক দ্রুত)</td></tr>
+    <tr><td><b>Tailwind CSS 4</b></td><td>Utility-first CSS ফ্রেমওয়ার্ক — ডিজাইন ও Dark Mode</td></tr>
+    <tr><td><b>React Router 7</b></td><td>Client-side রাউটিং — একাধিক পেজের মধ্যে নেভিগেশন</td></tr>
+    <tr><td><b>Zustand</b></td><td>গ্লোবাল State Management (Redux-এর সহজ বিকল্প)</td></tr>
+  </table>
+
+  <h3>Backend</h3>
+  <table>
+    <tr><th>টেকনোলজি</th><th>কাজ</th></tr>
+    <tr><td><b>Node.js</b></td><td>জাভাস্ক্রিপ্ট রানটাইম এনভায়রনমেন্ট</td></tr>
+    <tr><td><b>Express.js 5</b></td><td>API সার্ভার ফ্রেমওয়ার্ক — <code>/chat</code>, <code>/summarize</code> এন্ডপয়েন্ট</td></tr>
+    <tr><td><b>@google/generative-ai</b></td><td>Google Gemini AI মডেলের সাথে সংযোগ করার SDK</td></tr>
+    <tr><td><b>dotenv</b></td><td>এনভায়রনমেন্ট ভ্যারিয়েবল (API Key) ম্যানেজ করার জন্য</td></tr>
+    <tr><td><b>cors</b></td><td>Cross-Origin রিকোয়েস্ট অনুমতি দেওয়ার জন্য</td></tr>
+  </table>
+
+  <h3>অন্যান্য টুলস</h3>
+  <table>
+    <tr><th>টুল</th><th>ব্যবহার</th></tr>
+    <tr><td>Puppeteer</td><td>HTML থেকে PDF জেনারেট করার স্ক্রিপ্ট (এই ডকুমেন্টটিও এভাবেই তৈরি)</td></tr>
+    <tr><td>ESM (<code>type: module</code>)</td><td>Modern JavaScript import/export সিনট্যাক্স ব্যবহার</td></tr>
+  </table>
+</div>
+
+<!-- 3. FOLDER STRUCTURE -->
+<div class="page">
+  <h2 class="section-title"><span class="num">০৩</span>প্রজেক্ট স্ট্রাকচার (Folder Structure)</h2>
+  <p>পুরো প্রজেক্টের ফোল্ডার স্ট্রাকচার নিচে দেওয়া হলো — এটি প্রেজেন্টেশনে দেখিয়ে বলতে পারবেন কোন ফোল্ডারে কী আছে:</p>
+  <pre>react project/
+├── index.html            <span class="cmt"># মূল HTML এন্ট্রি পয়েন্ট</span>
+├── package.json           <span class="cmt"># সব dependency ও npm script</span>
+├── vite.config.js          <span class="cmt"># Vite + Tailwind + API proxy কনফিগ</span>
+├── server.js              <span class="cmt"># Express AI backend সার্ভার</span>
+├── .env                   <span class="cmt"># Google AI API Key (গোপন)</span>
+├── public/logo.png
+├── scripts/generate-pdf.mjs  <span class="cmt"># PDF জেনারেটর স্ক্রিপ্ট</span>
+└── src/
+    ├── main.jsx           <span class="cmt"># React অ্যাপ শুরু হয় এখান থেকে</span>
+    ├── App.jsx            <span class="cmt"># Router + Global setup</span>
+    ├── index.css          <span class="cmt"># Tailwind থিম ও কালার</span>
+    ├── components/        <span class="cmt"># পুনঃব্যবহারযোগ্য UI অংশ</span>
+    ├── layouts/           <span class="cmt"># পেজ লেআউট (Main, Auth, Dashboard, Admin)</span>
+    ├── pages/             <span class="cmt"># প্রতিটি রুটের পেজ কম্পোনেন্ট</span>
+    │   ├── admin/         <span class="cmt"># অ্যাডমিন প্যানেলের সব পেজ</span>
+    │   └── modules/       <span class="cmt"># Notes, Summary, Planner মডিউল</span>
+    ├── routes/AppRoutes.jsx  <span class="cmt"># সব রাউট ডিফাইন করা আছে এখানে</span>
+    ├── store/             <span class="cmt"># Zustand স্টেট স্টোর (auth, admin, notes, theme)</span>
+    ├── hooks/             <span class="cmt"># কাস্টম React hooks</span>
+    └── utils/             <span class="cmt"># হেল্পার ফাংশন (storage, api, constants)</span></pre>
+
+  <div class="card">
+    <h4>💡 প্রেজেন্টেশন টিপস</h4>
+    <p>এই স্ট্রাকচার দেখানোর সময় বলুন — "আমার প্রজেক্টটি <b>feature-based architecture</b> মেনে করা, যেখানে
+    প্রতিটি ফোল্ডারের একটি নির্দিষ্ট দায়িত্ব (responsibility) আছে — যেমন <code>store</code> ফোল্ডার শুধু state
+    সামলায়, <code>pages</code> ফোল্ডার শুধু UI দেখায়, <code>utils</code> ফোল্ডার হেল্পার লজিক রাখে।"</p>
+  </div>
+</div>
+
+<!-- 4. ARCHITECTURE -->
+<div class="page">
+  <h2 class="section-title"><span class="num">০৪</span>আর্কিটেকচার — এটি কিভাবে কাজ করে</h2>
+  <p>এই অ্যাপটি দুটি প্রধান অংশে বিভক্ত: <b>Frontend (React)</b> এবং <b>Backend (Express + Gemini AI)</b>।
+  বেশিরভাগ ফিচার (Notes, Planner, Login) সম্পূর্ণভাবে ব্রাউজারেই কাজ করে — ব্যাকএন্ডের প্রয়োজন হয় শুধু
+  AI চ্যাট ও সামারি ফিচারের জন্য।</p>
+
+  <div class="flow">
+    <div class="box">React UI<br/>(Pages/Components)</div>
+    <div class="arrow">→</div>
+    <div class="box">Zustand Store<br/>(Global State)</div>
+    <div class="arrow">→</div>
+    <div class="box">localStorage<br/>(Browser)</div>
+  </div>
+  <div class="flow">
+    <div class="box">Summary Page<br/>(Chat/Summarize)</div>
+    <div class="arrow">→</div>
+    <div class="box">Express Server<br/>(localhost:5000)</div>
+    <div class="arrow">→</div>
+    <div class="box">Google Gemini AI<br/>(External API)</div>
+  </div>
+
+  <h3>এটি ধাপে ধাপে যেভাবে কাজ করে</h3>
+  <ol class="steps">
+    <li><span class="n">1</span><div>ইউজার ব্রাউজারে ওয়েবসাইট ওপেন করে — <code>index.html</code> লোড হয়, যা <code>main.jsx</code> কে React রুট এলিমেন্টে মাউন্ট করে।</div></li>
+    <li><span class="n">2</span><div><code>App.jsx</code> রান হয়ে <code>authStore</code> থেকে সেশন এবং <code>adminStore</code> থেকে সাইট সেটিংস লোড করে (hydrate)।</div></li>
+    <li><span class="n">3</span><div><code>AppRoutes.jsx</code> ঠিক করে ইউজার কোন পেজ দেখবে — Login করা না থাকলে Login পেজ, Admin হলে Admin Panel, নাহলে Dashboard।</div></li>
+    <li><span class="n">4</span><div>ইউজার যখন Notes/Planner-এ কোনো ডেটা লেখে, তা <b>Zustand Store</b> আপডেট করে এবং সাথে সাথে <b>localStorage</b>-এ সেভ হয়ে যায়।</div></li>
+    <li><span class="n">5</span><div>ইউজার AI চ্যাট বা সামারি ব্যবহার করলে, ফ্রন্টএন্ড থেকে <code>fetch()</code> রিকোয়েস্ট যায় Express সার্ভারে (<code>/chat</code> অথবা <code>/summarize</code>)।</div></li>
+    <li><span class="n">6</span><div>Express সার্ভার Google Gemini AI মডেলে রিকোয়েস্ট পাঠায়, উত্তর নিয়ে এসে ফ্রন্টএন্ডে ফিরিয়ে দেয়।</div></li>
+    <li><span class="n">7</span><div>Admin কোনো সেটিংস পরিবর্তন করলে (যেমন মডিউল বন্ধ করা) তা <code>adminStore</code>-তে সেভ হয় এবং সব ইউজারের ইন্টারফেসে সাথে সাথে প্রভাব ফেলে।</div></li>
+  </ol>
+</div>
+
+<!-- 5. STATE MANAGEMENT -->
+<div class="page">
+  <h2 class="section-title"><span class="num">০৫</span>State Management (Zustand Stores)</h2>
+  <p>Zustand একটি হালকা (lightweight) state management লাইব্রেরি, যা Redux-এর তুলনায় অনেক সহজ। এই প্রজেক্টে চারটি স্টোর ব্যবহার করা হয়েছে:</p>
+
+  <div class="card">
+    <h4>1. authStore.js</h4>
+    <p>ইউজার লগইন, রেজিস্ট্রেশন, লগআউট এবং সেশন সামলায়। Login/Register হলে ইউজারের তথ্য <code>localStorage</code>-এ সেভ হয়।</p>
+  </div>
+  <div class="card">
+    <h4>2. adminStore.js</h4>
+    <p>সাইটের সব সেটিংস, ইউজার লিস্ট, অ্যানাউন্সমেন্ট, ফিচার-মডিউল টগল এবং অ্যাক্টিভিটি লগ ম্যানেজ করে। এটি অ্যাডমিন প্যানেলের প্রাণ।</p>
+  </div>
+  <div class="card">
+    <h4>3. notesStore.js</h4>
+    <p>প্রতিটি ইউজারের নোট (Create, Read, Update, Delete) আলাদাভাবে সংরক্ষণ ও পরিচালনা করে (ইউজার আইডি অনুযায়ী)।</p>
+  </div>
+  <div class="card">
+    <h4>4. themeStore.js</h4>
+    <p>Dark/Light থিম টগল সামলায় এবং ইউজারের পছন্দ localStorage-এ সেভ রাখে।</p>
+  </div>
+
+  <h3>কেন Zustand ব্যবহার করা হয়েছে?</h3>
+  <ul>
+    <li>খুব কম কোড লিখেই গ্লোবাল স্টেট তৈরি করা যায় (Redux-এর মতো Provider/Reducer লাগে না)।</li>
+    <li>যেকোনো কম্পোনেন্ট থেকে <code>useAuthStore((s) =&gt; s.user)</code> এর মতো সহজভাবে ডেটা অ্যাক্সেস করা যায়।</li>
+    <li>স্টেট পরিবর্তন হলে যেসব কম্পোনেন্ট সেই ডেটা সাবস্ক্রাইব করে আছে, তারা automatically re-render হয়।</li>
+  </ul>
+</div>
+
+<!-- 6. ROUTING -->
+<div class="page">
+  <h2 class="section-title"><span class="num">০৬</span>রাউটিং সিস্টেম (Routing & Route Guards)</h2>
+  <p><code>src/routes/AppRoutes.jsx</code> ফাইলে <b>React Router</b> দিয়ে পুরো অ্যাপের সব পেজ ও পাথ ডিফাইন করা আছে।</p>
+
+  <table>
+    <tr><th>Route</th><th>Layout</th><th>বিবরণ</th></tr>
+    <tr><td><code>/</code></td><td>MainLayout</td><td>পাবলিক ল্যান্ডিং পেজ</td></tr>
+    <tr><td><code>/login</code>, <code>/register</code></td><td>AuthLayout</td><td>লগইন ও রেজিস্ট্রেশন (লগইন থাকলে ঢোকা যায় না)</td></tr>
+    <tr><td><code>/dashboard</code></td><td>DashboardLayout</td><td>ইউজারের হোম — মডিউল কার্ড</td></tr>
+    <tr><td><code>/notes</code></td><td>DashboardLayout</td><td>নোট মডিউল</td></tr>
+    <tr><td><code>/summary</code></td><td>DashboardLayout</td><td>AI চ্যাট + সামারি মডিউল</td></tr>
+    <tr><td><code>/planner</code></td><td>DashboardLayout</td><td>স্টাডি প্ল্যানার মডিউল</td></tr>
+    <tr><td><code>/admin/*</code></td><td>AdminLayout</td><td>অ্যাডমিন প্যানেলের সব পেজ</td></tr>
+  </table>
+
+  <h3>রুট প্রোটেকশন (Route Guards)</h3>
+  <ul>
+    <li><b>UserRoute</b> — লগইন না থাকলে <code>/login</code>-এ পাঠিয়ে দেয়, Admin হলে <code>/admin</code>-এ পাঠায়।</li>
+    <li><b>AdminRoute</b> — Admin role না থাকলে Dashboard-এ ফিরিয়ে দেয়।</li>
+    <li><b>ModuleRoute</b> — Admin যদি কোনো মডিউল (Notes/Summary/Planner) বন্ধ করে রাখে, তাহলে সেই পেজে ঢোকা যায় না, Dashboard-এ পাঠিয়ে দেয়।</li>
+    <li><b>GuestOnlyRoute</b> — যদি ইউজার আগেই লগইন করা থাকে, তাহলে Login/Register পেজ না দেখিয়ে সরাসরি Dashboard-এ পাঠায়।</li>
+  </ul>
+
+  <div class="card">
+    <h4>🛠 নতুন সংযোজন: Maintenance Mode Guard</h4>
+    <p>অ্যাডমিন যদি "Maintenance Mode" চালু করে, তাহলে সাধারণ ইউজাররা পুরো সাইটে একটি "সাইট মেইনটেন্যান্সে আছে" পেজ দেখবে —
+    শুধুমাত্র অ্যাডমিন লগইন করে সাইট চালু রাখতে পারবে।</p>
+  </div>
+</div>
+
+<!-- 7. USER FEATURES -->
+<div class="page">
+  <h2 class="section-title"><span class="num">০৭</span>মূল ফিচারসমূহ — ইউজার সাইড</h2>
+
+  <h3>📝 Notes (নোট ম্যানেজমেন্ট)</h3>
+  <p>ইউজার নিজের স্টাডি নোট তৈরি, এডিট, ডিলিট এবং সার্চ করতে পারে। প্রতিটি ইউজারের নোট তার ইউজার আইডি অনুযায়ী আলাদাভাবে <code>localStorage</code>-এ সংরক্ষিত হয়।</p>
+
+  <h3>🤖 Summary (AI চ্যাট + স্মার্ট সামারি)</h3>
+  <p>দুটি ট্যাব আছে —</p>
+  <ul>
+    <li><b>AI Chat:</b> ইউজার প্রশ্ন করলে Google Gemini AI উত্তর দেয়, কথোপকথনের ইতিহাস সেভ থাকে।</li>
+    <li><b>Smart Summary:</b> বড় নোট পেস্ট করলে AI সংক্ষিপ্ত বুলেট পয়েন্টে সামারি তৈরি করে দেয় — দ্রুত রিভিশনের জন্য উপযোগী।</li>
+  </ul>
+
+  <h3>📅 Planner (স্টাডি প্ল্যানার)</h3>
+  <p>ইউজার দৈনিক স্টাডি টাস্ক যুক্ত করতে পারে, টাস্ক সম্পন্ন হলে চেকমার্ক দিতে পারে এবং একটি প্রোগ্রেস বার-এ কত শতাংশ কাজ শেষ হয়েছে দেখতে পারে।</p>
+
+  <h3>🌗 Dark / Light Theme</h3>
+  <p>Navbar-এর টগল বাটন থেকে ইউজার যেকোনো সময় Dark বা Light মোডে সুইচ করতে পারে। অ্যাডমিন সেটিংসে একটি "Default Theme"
+  ঠিক করে দিতে পারেন — নতুন ভিজিটর প্রথমবার এলে সেই থিমটাই দেখবে (যদি তার নিজের কোনো পছন্দ সেভ না থাকে)।</p>
+
+  <h3>🎓 Dashboard</h3>
+  <p>লগইন করার পর ইউজার Dashboard-এ আসে, যেখানে অ্যাডমিন যেসব মডিউল চালু রেখেছেন তার কার্ড দেখা যায়। বন্ধ মডিউলে "Coming Soon" ব্যাজ দেখা যায়।</p>
+</div>
+
+<!-- 8. ADMIN PANEL -->
+<div class="page">
+  <h2 class="section-title"><span class="num">০৮</span>অ্যাডমিন প্যানেল — সম্পূর্ণ বিবরণ</h2>
+  <p>একটি নির্দিষ্ট Admin অ্যাকাউন্ট দিয়ে লগইন করলে সম্পূর্ণ আলাদা একটি প্যানেল দেখা যায়, যেখান থেকে পুরো অ্যাপ কন্ট্রোল করা যায়:</p>
+
+  <table>
+    <tr><th>পেজ</th><th>কাজ</th></tr>
+    <tr><td><b>Overview</b></td><td>Total Users, Active Session, Announcements, Enabled Modules — সব স্ট্যাটিস্টিক্স একসাথে</td></tr>
+    <tr><td><b>Users</b></td><td>ইউজার তৈরি, এডিট, ডিলিট (Full CRUD), সার্চ, বাল্ক ডিলিট</td></tr>
+    <tr><td><b>Announcements</b></td><td>সাইটে নোটিশ তৈরি — এখন এটি আসলেই ইউজারদের Dashboard-এ ব্যানার হিসেবে দেখা যায়</td></tr>
+    <tr><td><b>Settings</b></td><td>Site Name, Description, Registration চালু/বন্ধ, Maintenance Mode, Password rules, মডিউল অন/অফ</td></tr>
+    <tr><td><b>Data</b></td><td>সব ডেটা Export/Import করা, নির্দিষ্ট storage key দেখা/এডিট করা, সব ডেটা রিসেট করা</td></tr>
+    <tr><td><b>Sessions</b></td><td>বর্তমান লগইন সেশন দেখা এবং অ্যাডমিন অ্যাক্টিভিটি লগ পর্যবেক্षण করা</td></tr>
+  </table>
+
+  <h3>Feature Modules টগল</h3>
+  <p>অ্যাডমিন চাইলে Notes, Summary, Planner মডিউল আলাদাভাবে চালু/বন্ধ করতে পারেন। বন্ধ করলে তা সব ইউজারের Sidebar ও Dashboard থেকে সাথে সাথে হাইড/লক হয়ে যায়।</p>
+
+  <div class="card">
+    <h4>✅ সাম্প্রতিক ফিক্স (Bug Fixes)</h4>
+    <p>আগে Site Name, Announcement, Maintenance Mode-এর মতো সেটিংস সেভ হলেও বাস্তবে কোথাও দেখা যেত না। এখন —</p>
+    <ul style="margin:6px 0 0 0;">
+      <li>Site Name পরিবর্তন করলে Navbar, Footer ও Browser Tab টাইটেলে সাথে সাথে দেখা যায়।</li>
+      <li>Announcement তৈরি করলে তা ইউজারদের পেজে ব্যানার হিসেবে দেখা যায়।</li>
+      <li>Maintenance Mode চালু করলে সাধারণ ইউজাররা একটি Maintenance পেজ দেখে, সাইট ব্যবহার করতে পারে না।</li>
+      <li>সব মডিউল বন্ধ করলে সেটিংস আর নিজে থেকে রিসেট হয়ে যায় না — অ্যাডমিনের সিদ্ধান্ত ঠিক থাকে।</li>
+    </ul>
+  </div>
+</div>
+
+<!-- 9. BACKEND -->
+<div class="page">
+  <h2 class="section-title"><span class="num">০৯</span>AI Backend Server (Express + Gemini)</h2>
+  <p><code>server.js</code> ফাইলে একটি ছোট Express সার্ভার আছে, যা Google-এর Gemini AI মডেলের সাথে সংযোগ করে দুটি কাজ করে:</p>
+
+  <table>
+    <tr><th>Endpoint</th><th>Method</th><th>কাজ</th></tr>
+    <tr><td><code>/health</code></td><td>GET</td><td>সার্ভার ঠিকমতো চলছে কিনা ও API key কনফিগার হয়েছে কিনা চেক করে</td></tr>
+    <tr><td><code>/chat</code></td><td>POST</td><td>ইউজারের মেসেজ নিয়ে Gemini AI-কে পাঠায় এবং উত্তর ফিরিয়ে দেয়</td></tr>
+    <tr><td><code>/summarize</code></td><td>POST</td><td>বড় টেক্সট নিয়ে AI দিয়ে বুলেট পয়েন্টে সংক্ষিপ্ত সামারি বানায়</td></tr>
+  </table>
+
+  <h3>ধাপে ধাপে ফ্লো</h3>
+  <ol class="steps">
+    <li><span class="n">1</span><div>ফ্রন্টএন্ড (<code>utils/api.js</code>) <code>fetch()</code> দিয়ে <code>/chat</code> অথবা <code>/summarize</code>-এ POST রিকোয়েস্ট পাঠায়।</div></li>
+    <li><span class="n">2</span><div>Development মোডে Vite proxy (<code>vite.config.js</code>) রিকোয়েস্টটি <code>localhost:5000</code>-তে ফরওয়ার্ড করে।</div></li>
+    <li><span class="n">3</span><div>Express সার্ভার <code>.env</code> ফাইল থেকে <code>GOOGLE_AI_API_KEY</code> ব্যবহার করে Gemini মডেল ইনিশিয়ালাইজ করে।</div></li>
+    <li><span class="n">4</span><div>Gemini AI প্রম্পট প্রসেস করে একটি টেক্সট রেসপন্স তৈরি করে।</div></li>
+    <li><span class="n">5</span><div>Express সেই রেসপন্স JSON ফরম্যাটে ফ্রন্টএন্ডে ফিরিয়ে দেয়, যা স্ক্রিনে দেখানো হয়।</div></li>
+  </ol>
+
+  <div class="card">
+    <h4>⚙️ .env ফাইলে যা লাগবে</h4>
+    <pre style="margin:6px 0 0;">GOOGLE_AI_API_KEY=your_api_key_here
+GOOGLE_AI_MODEL=gemini-flash-lite-latest
+PORT=5000</pre>
+  </div>
+</div>
+
+<!-- 10. DATA STORAGE -->
+<div class="page">
+  <h2 class="section-title"><span class="num">১০</span>ডেটা সংরক্ষণ পদ্ধতি (localStorage)</h2>
+  <p>এই প্রজেক্টে কোনো real ডাটাবেস (MongoDB/MySQL) ব্যবহার করা হয়নি। পরিবর্তে সব ডেটা সরাসরি ব্রাউজারের
+  <b>localStorage</b>-এ JSON ফরম্যাটে সংরক্ষণ করা হয়। এটি একটি শিক্ষামূলক/ডেমো প্রজেক্টের জন্য উপযোগী পদ্ধতি।</p>
+
+  <table>
+    <tr><th>Storage Key</th><th>কী সংরক্ষণ করে</th></tr>
+    <tr><td><code>auth_user</code></td><td>রেজিস্টার করা সব ইউজারের লিস্ট</td></tr>
+    <tr><td><code>auth_session</code></td><td>বর্তমানে লগইন করা ইউজারের সেশন তথ্য</td></tr>
+    <tr><td><code>app_settings</code></td><td>অ্যাডমিনের সব সাইট সেটিংস ও মডিউল কনফিগ</td></tr>
+    <tr><td><code>admin_log</code></td><td>অ্যাডমিনের কার্যক্রমের হিস্টোরি (Activity Log)</td></tr>
+    <tr><td><code>notes</code></td><td>প্রতিটি ইউজারের নোট (ইউজার আইডি অনুযায়ী)</td></tr>
+    <tr><td><code>chat_history</code></td><td>প্রতিটি ইউজারের AI চ্যাট হিস্টোরি</td></tr>
+    <tr><td><code>planner</code></td><td>প্রতিটি ইউজারের স্টাডি টাস্ক লিস্ট</td></tr>
+    <tr><td><code>theme</code></td><td>ইউজারের Dark/Light থিম পছন্দ</td></tr>
+  </table>
+
+  <div class="card">
+    <h4>💡 প্রেজেন্টেশন টিপস</h4>
+    <p>যদি প্রশ্ন আসে "ডাটাবেস কোথায়?" — বলুন: "এই প্রজেক্টে শেখার উদ্দেশ্যে আমরা Browser-এর localStorage কে
+    ডাটাবেসের মতো ব্যবহার করেছি। চাইলে ভবিষ্যতে এটিকে MongoDB বা PostgreSQL-এর মতো real ডাটাবেসে migrate করা সম্ভব,
+    কারণ সব ডেটা-অ্যাক্সেস লজিক আলাদা <code>store</code> ফাইলে সংগঠিত রাখা হয়েছে।"</p>
+  </div>
+</div>
+
+<!-- 11. USER FLOW -->
+<div class="page">
+  <h2 class="section-title"><span class="num">১১</span>ইউজার ফ্লো — স্টেপ বাই স্টেপ</h2>
+  <ol class="steps">
+    <li><span class="n">1</span><div>ইউজার ওয়েবসাইটে ঢুকে ল্যান্ডিং পেজ দেখে (Hero, Features, CTA)।</div></li>
+    <li><span class="n">2</span><div>"Get Started" বা "Register" বাটনে ক্লিক করে নিজের নাম, ইমেইল, পাসওয়ার্ড দিয়ে অ্যাকাউন্ট তৈরি করে।</div></li>
+    <li><span class="n">3</span><div>রেজিস্ট্রেশনের সাথে সাথে সে অটোমেটিক লগইন হয়ে যায় এবং Dashboard-এ পৌঁছে যায়।</div></li>
+    <li><span class="n">4</span><div>Dashboard-এ অ্যাডমিনের চালু করা মডিউল কার্ড দেখতে পায় — Notes, Summary, Planner।</div></li>
+    <li><span class="n">5</span><div>Notes-এ ক্লিক করে নতুন নোট লিখতে/এডিট/ডিলিট করতে পারে।</div></li>
+    <li><span class="n">6</span><div>Summary পেজে গিয়ে AI-এর সাথে চ্যাট করতে পারে বা বড় নোট সামারি করতে পারে।</div></li>
+    <li><span class="n">7</span><div>Planner-এ দিনের টাস্ক যুক্ত করে, শেষ হলে চেক করে প্রোগ্রেস দেখে।</div></li>
+    <li><span class="n">8</span><div>কাজ শেষে Navbar থেকে Logout করে সেশন শেষ করে।</div></li>
+  </ol>
+</div>
+
+<!-- 12. ADMIN FLOW -->
+<div class="page">
+  <h2 class="section-title"><span class="num">১২</span>অ্যাডমিন ফ্লো — স্টেপ বাই স্টেপ</h2>
+  <ol class="steps">
+    <li><span class="n">1</span><div>Login পেজে নির্ধারিত অ্যাডমিন ইমেইল/পাসওয়ার্ড দিয়ে লগইন করে।</div></li>
+    <li><span class="n">2</span><div>সিস্টেম স্বয়ংক্রিয়ভাবে চিনে নেয় এটি Admin, এবং সরাসরি <code>/admin</code> Overview পেজে পাঠিয়ে দেয়।</div></li>
+    <li><span class="n">3</span><div>Overview-এ সব পরিসংখ্যান দেখে — কতজন ইউজার, কতগুলো অ্যানাউন্সমেন্ট চালু, কোন মডিউল এনাবল।</div></li>
+    <li><span class="n">4</span><div>Users পেজে গিয়ে নতুন ইউজার তৈরি করতে, কারো স্ট্যাটাস Suspend/Inactive করতে, বা ডিলিট করতে পারে।</div></li>
+    <li><span class="n">5</span><div>Announcements পেজে গিয়ে সবার জন্য একটি নোটিশ তৈরি করে — যা সাথে সাথে সব ইউজারের Dashboard-এ দেখা যায়।</div></li>
+    <li><span class="n">6</span><div>Settings পেজে গিয়ে Site Name পরিবর্তন করলে সাথে সাথে Navbar/Footer-এ তা প্রতিফলিত হয়।</div></li>
+    <li><span class="n">7</span><div>প্রয়োজনে কোনো মডিউল (যেমন Planner) বন্ধ করে দিলে সব ইউজারের Sidebar থেকে তা লক হয়ে যায়।</div></li>
+    <li><span class="n">8</span><div>Data পেজ থেকে পুরো অ্যাপের ডেটা Export/Backup করে রাখতে পারে।</div></li>
+  </ol>
+</div>
+
+<!-- 13. SETUP & RUN -->
+<div class="page">
+  <h2 class="section-title"><span class="num">১৩</span>প্রজেক্ট রান করার পদ্ধতি (Setup & Run)</h2>
+
+  <h3>ধাপ ১ — Dependency ইনস্টল</h3>
+  <pre>npm install</pre>
+
+  <h3>ধাপ ২ — .env ফাইল তৈরি</h3>
+  <pre>GOOGLE_AI_API_KEY=your_google_ai_api_key
+GOOGLE_AI_MODEL=gemini-flash-lite-latest
+PORT=5000</pre>
+  <p>Google AI Studio (<code>aistudio.google.com/apikey</code>) থেকে ফ্রি API Key নেওয়া যায়।</p>
+
+  <h3>ধাপ ৩ — Backend সার্ভার চালু করা</h3>
+  <pre>npm run dev:server   <span class="cmt"># http://localhost:5000</span></pre>
+
+  <h3>ধাপ ৪ — Frontend চালু করা (নতুন টার্মিনালে)</h3>
+  <pre>npm run dev          <span class="cmt"># http://localhost:5173</span></pre>
+
+  <h3>ধাপ ৫ — Production Build</h3>
+  <pre>npm run build        <span class="cmt"># dist/ ফোল্ডারে বিল্ড তৈরি হবে</span>
+npm run preview      <span class="cmt"># বিল্ড করা ভার্সন প্রিভিউ</span></pre>
+
+  <div class="card">
+    <h4>🔑 ডেমো লগইন ক্রেডেনশিয়াল</h4>
+    <table style="margin:8px 0 0;">
+      <tr><th>Role</th><th>Email</th><th>Password</th></tr>
+      <tr><td>Admin</td><td><code>sharin@aistydy.com</code></td><td><code>sharin123</code></td></tr>
+      <tr><td>Student</td><td colspan="2">Register পেজ থেকে নতুন অ্যাকাউন্ট তৈরি করুন</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- 14. Q&A -->
+<div class="page">
+  <h2 class="section-title"><span class="num">১৪</span>প্রেজেন্টেশনের জন্য প্রশ্নোত্তর (Q&A)</h2>
+  <div class="qa">
+    <p class="q">প্র: এই প্রজেক্টে ডাটাবেস কী ব্যবহার করা হয়েছে?</p>
+    <p class="a">উ: কোনো external ডাটাবেস ব্যবহার হয়নি — সব ডেটা ব্রাউজারের localStorage-এ JSON আকারে সংরক্ষিত থাকে।</p>
+
+    <p class="q">প্র: State Management-এর জন্য Redux ব্যবহার না করে Zustand কেন?</p>
+    <p class="a">উ: Zustand অনেক কম কোড লিখে সহজে গ্লোবাল স্টেট তৈরি করতে দেয় এবং boilerplate কম, তাই ছোট-মাঝারি প্রজেক্টের জন্য উপযোগী।</p>
+
+    <p class="q">প্র: AI ফিচার কিভাবে কাজ করে?</p>
+    <p class="a">উ: ফ্রন্টএন্ড থেকে Express ব্যাকএন্ডে রিকোয়েস্ট যায়, ব্যাকএন্ড Google Gemini AI API কল করে উত্তর নিয়ে আসে এবং ফ্রন্টএন্ডে ফিরিয়ে দেয়।</p>
+
+    <p class="q">প্র: Admin ও User-এর মধ্যে পার্থক্য কিভাবে করা হয়?</p>
+    <p class="a">উ: লগইনের সময় ইমেইল/পাসওয়ার্ড মিলিয়ে দেখা হয় সেটি নির্দিষ্ট Admin ক্রেডেনশিয়াল কিনা; মিললে <code>role: 'admin'</code> সেট হয়ে যায়, এবং Route Guard (AdminRoute) সেই অনুযায়ী অ্যাক্সেস নিয়ন্ত্রণ করে।</p>
+
+    <p class="q">প্র: Admin কোনো মডিউল বন্ধ করলে কী হয়?</p>
+    <p class="a">উ: <code>adminStore</code>-এর <code>settings.modules</code> আপডেট হয়ে যায়, যা সব ইউজারের Sidebar/Dashboard/Routing-এ সাথে সাথে প্রতিফলিত হয় (ModuleRoute গার্ড ব্যবহার করে)।</p>
+
+    <p class="q">প্র: এই প্রজেক্টকে Real production অ্যাপে রূপান্তর করতে কী করতে হবে?</p>
+    <p class="a">উ: localStorage-এর জায়গায় real ডাটাবেস (MongoDB/PostgreSQL) ব্যবহার করতে হবে, পাসওয়ার্ড hashing (bcrypt) যুক্ত করতে হবে, এবং JWT-ভিত্তিক authentication চালু করতে হবে।</p>
+
+    <p class="q">প্র: Dark Mode কিভাবে কাজ করে?</p>
+    <p class="a">উ: Tailwind CSS-এর <code>dark</code> ক্লাস HTML-এ টগল করা হয়, এবং <code>themeStore</code> সেই পছন্দ localStorage-এ সেভ করে রাখে।</p>
+  </div>
+</div>
+
+<!-- 15. CONCLUSION -->
+<div class="page">
+  <h2 class="section-title"><span class="num">১৫</span>উপসংহার ও ভবিষ্যৎ পরিকল্পনা</h2>
+  <p><b>AI Study Assistant</b> একটি সম্পূর্ণ কার্যকরী স্টাডি প্ল্যাটফর্ম, যেখানে আধুনিক React আর্কিটেকচার,
+  স্মার্ট AI ইন্টিগ্রেশন এবং একটি পূর্ণাঙ্গ অ্যাডমিন কন্ট্রোল সিস্টেম একসাথে বাস্তবায়ন করা হয়েছে।</p>
+
+  <h3>ভবিষ্যৎ পরিকল্পনা (Future Scope)</h3>
+  <ul>
+    <li>Real ডাটাবেস (MongoDB/PostgreSQL) ইন্টিগ্রেশন।</li>
+    <li>JWT / OAuth ভিত্তিক নিরাপদ Authentication সিস্টেম।</li>
+    <li>Real-time নোটিফিকেশন (Socket.io) যুক্ত করা।</li>
+    <li>Quiz/Flashcard মডিউল নতুনভাবে ডিজাইন করে যুক্ত করা।</li>
+    <li>Mobile App ভার্সন (React Native) তৈরি করা।</li>
+    <li>Multiple AI মডেল সাপোর্ট (OpenAI, Claude ইত্যাদি)।</li>
+  </ul>
+
+  <div class="card" style="margin-top:30px;">
+    <h4>ধন্যবাদ 🙏</h4>
+    <p>এই ডকুমেন্টটি প্রেজেন্টেশনের জন্য A থেকে Z সম্পূর্ণ প্রজেক্ট ব্যাখ্যা করে তৈরি করা হয়েছে।</p>
+  </div>
+  <p class="footer-note">AI Study Assistant — Project Guide • Generated for Presentation</p>
+</div>
+
+</body>
+</html>
